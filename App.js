@@ -8,7 +8,7 @@ const MainNavigator = createStackNavigator({
   Main: {
     screen: Main
   }
-});
+}, {headerMode: 'none'});
 
 const AppContainer = createAppContainer(MainNavigator);
 

@@ -2,32 +2,32 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     header: {
-        flex: 1,
-        justifyContent: 'center'
-      },
-      menu: {
-        flex: 1,
-        flexDirection: 'row',
-        alignSelf: 'stretch',
+        justifyContent: 'center',
+        backgroundColor: '#6600ff',
+        padding: 20
       },
       content: {
-        flex: 3
+        flex: 1,
+        alignSelf: 'stretch',
+        padding: 20,
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: '#d6d7da',
       },
       player: {
-        flex: 1
+        justifyContent: 'flex-end',
+        alignItems: 'stretch',
       },
       title: {
         textAlign: 'center',
-        fontSize: 40,
+        fontSize: 30,
+        color: '#FFFFFF'
       },
-      subTitle: {
+      text: {
         textAlign: 'center',
-        fontSize: 30
       },
-      menuContainer: {
-    
+      scrollView: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
       },
-      contentContainer:{
-        
-      }
 })

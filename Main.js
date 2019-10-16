@@ -2,10 +2,10 @@ import React, {Fragment} from 'react';
 import {
   Text,
   View,
-  Button,
 } from 'react-native';
 
 import styles from './Styles.js';
+import MusicListScreen from './MusicListScreen.js';
 
 export default class Main extends React.Component {
 
@@ -22,18 +22,13 @@ export default class Main extends React.Component {
             <View style={styles.header}>
               <Text style={styles.title}>Musiikkikirjasto</Text>
             </View>
-            <View style={styles.menu}>
-              <Button title="Soittolistat"></Button>
-              <Button title="Artistit"></Button>
-              <Button title="Kaikki"></Button> 
-            </View>
             <View style={styles.content}>
-              <Text>Placeholder for content</Text>
+              <MusicListScreen />
             </View>
             <View style={styles.player}>
-              <Text>Placeholder for player</Text>
+              <Text style={styles.text}>Placeholder for player</Text>
             </View>
           </Fragment>
         );
-      }
+    }
 }
