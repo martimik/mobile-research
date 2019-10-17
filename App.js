@@ -3,10 +3,14 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from './Main.js'
+import AlbumDetailScreen from './AlbumDetailScreen.js'
 
 const MainNavigator = createStackNavigator({
   Main: {
     screen: Main
+  },
+  AlbumDetail: {
+    screen: AlbumDetailScreen
   }
 }, {headerMode: 'none'});
 

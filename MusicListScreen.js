@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import Permissions from 'react-native-permissions';
 import styles from './Styles.js';
 
 import {
@@ -17,22 +16,15 @@ class MusicList extends React.Component {
     this.state = { music: null };
   }
 
-  state = {
-    storagePermission:''
-  }
-
   componentDidMount() {
 
-    Permissions.request('READ_EXTERNAL_STORAGE').then(response => {
-      this.setState({ storagePermission: response })
-    })
-
     this.getMusic();
+
   }
 
   itemPressed = (index) => {
-      this.props.navigation.navigate('bandDetail',
-      {show: this.state.music.album[index]});
+      this.props.navigation.navigate('AlbumDetailScreen',
+      {music: this.state.music.album[index]});
   }
 
   async getMusic(){
@@ -41,53 +33,49 @@ class MusicList extends React.Component {
 
   render() {
   
-      if (this.state.shows == null){
-        return(
-          <View style={{flex: 1, padding: 20}}>
-            <Text style={styles.text}>Loading, please wait...</Text>
-          </View>
-        )
-      }
-      var items = this.state.music.album.map(function(album,index){
-        return (
-          <TouchableHighlight onPress={_ => this.itemPressed(index)} 
-            underlayColor="lightgray" key={index}>
-            <MusicListItem album={album}/>
-          </TouchableHighlight>
-        )
-      }.bind(this));
+    if (this.state.music == null){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <Text style={styles.text}>Loading, please wait...</Text>
+        </View>
+      )
+    }
+    var items = this.state.music.album.map(function(album,index){
       return (
-        <ScrollView style={styles.scrollView}>
-          {items}
-        </ScrollView>
-      );
+        <TouchableHighlight onPress={_ => this.itemPressed(index)} 
+          underlayColor="lightgray" key={index}>
+          <MusicListItem album={album}/>
+        </TouchableHighlight>
+      )
+    }.bind(this));
+    return (
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        {items}
+      </ScrollView>
+    );
   }
 }
 
 // remove comments after getMusic is implemented
 class MusicListItem extends React.Component {
-    render() {
-        // let imageUrl = this.props.album.Images[0];
-        return (
-            <View>
-                <View id="image">
-                    <Image /* source={{uri: imageurl}} */></Image>
-                </View>
-                <View id="info">
-                    <Text id="albumName"></Text>
-                    <Text id="bandName"></Text>
-                </View>
-            </View>
-        )
-    }
+  render() {
+    // let imageUrl = this.props.album.Images[0];
+    return (
+      <View style={styles.musicListItem}>
+        <Image source={{uri: imageurl}} style={styles.musicListImage}></Image>
+        <Text style={styles.musicListTitle}>album name</Text>
+        <Text style={styles.musicListSubTitle}>band name</Text>
+      </View>
+    )
+  }
 }
 
 export default class MusicListScreen extends React.Component {
-    render() {
-      return (
-        <Fragment>
-            <MusicList navigation={this.props.navigation}/>
-        </Fragment>
-      );
-    }
-  };
+  render() {
+    return (
+      <Fragment>
+        <MusicList navigation={this.props.navigation}/>
+      </Fragment>
+    );
+  }
+};
