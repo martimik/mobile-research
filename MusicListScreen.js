@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import Permissions from 'react-native-permissions';
 import styles from './Styles.js';
 
 import {
@@ -11,47 +12,56 @@ import {
 
 class MusicList extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { music: null };
-    }
+  constructor(props) {
+    super(props);
+    this.state = { music: null };
+  }
+
+  state = {
+    storagePermission:''
+  }
+
+  componentDidMount() {
+
+    Permissions.request('READ_EXTERNAL_STORAGE').then(response => {
+      this.setState({ storagePermission: response })
+    })
+
+    this.getMusic();
+  }
+
+  itemPressed = (index) => {
+      this.props.navigation.navigate('bandDetail',
+      {show: this.state.music.album[index]});
+  }
+
+  async getMusic(){
+      // Implement music search here
+  }
+
+  render() {
   
-    componentDidMount(){
-        this.getMusic();
-    }
-
-    itemPressed = (index) => {
-        this.props.navigation.navigate('bandDetail',
-        {show: this.state.music.album[index]});
-    }
-
-    async getMusic(){
-        // Implement music search here
-    }
-
-    render() {
-    
-        if (this.state.shows == null){
-          return(
-            <View style={{flex: 1, padding: 20}}>
-              <Text style={styles.text}>Loading, please wait...</Text>
-            </View>
-          )
-        }
-        var items = this.state.music.album.map(function(album,index){
-          return (
-            <TouchableHighlight onPress={_ => this.itemPressed(index)} 
-              underlayColor="lightgray" key={index}>
-              <MusicListItem album={album}/>
-            </TouchableHighlight>
-          )
-        }.bind(this));
+      if (this.state.shows == null){
+        return(
+          <View style={{flex: 1, padding: 20}}>
+            <Text style={styles.text}>Loading, please wait...</Text>
+          </View>
+        )
+      }
+      var items = this.state.music.album.map(function(album,index){
         return (
-          <ScrollView style={styles.scrollView}>
-            {items}
-          </ScrollView>
-        );
-    }
+          <TouchableHighlight onPress={_ => this.itemPressed(index)} 
+            underlayColor="lightgray" key={index}>
+            <MusicListItem album={album}/>
+          </TouchableHighlight>
+        )
+      }.bind(this));
+      return (
+        <ScrollView style={styles.scrollView}>
+          {items}
+        </ScrollView>
+      );
+  }
 }
 
 // remove comments after getMusic is implemented
