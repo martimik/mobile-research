@@ -31,7 +31,7 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
   },
-  musicListItem: {
+  albumListItem: {
     flexDirection: 'column',
     width: 190,
     height: 200,
@@ -41,17 +41,60 @@ export default StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 10,
   },
-  musicListImage:{
+  albumListImage:{
     flex: 1,
     width: 190,
     resizeMode: 'stretch',
-    
   },
-  musicListTitle: {
+  albumListTitle: {
     fontWeight: 'bold',
     padding: 2,
   },
-  musicListSubTitle: {
+  albumListSubTitle: {
     padding: 2,
+  },
+  songListHeader: {
+    flexDirection: 'column',
+    width: '100%',
+    height: 400,
+    overflow: 'hidden',
+  },
+  songListHeaderImage: {
+    flex: 1,
+    width: '100%',
+    resizeMode: 'stretch',
+  },
+  songListHeaderTitle: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingHorizontal: 5,
+  
+  },
+  songListHeaderSubTitle:{
+    fontSize: 20,
+    paddingLeft: 5
+  },
+  songScrollView:{
+    flexDirection: 'column'
+  },
+  songListItem:{
+    flexDirection: 'row',
+    margin: 5,
+    padding: 20,
+  },
+  songListItemNumber: {
+    fontSize: 20,
+    fontStyle: 'italic',
+    paddingLeft: 10
+  },
+  songListItemTitle: {
+    flex: 2,
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  songListItemTime: {
+    fontSize: 20,
+    alignSelf: 'flex-end',
+    paddingRight: 10,
   }
 })

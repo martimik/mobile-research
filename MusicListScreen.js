@@ -24,11 +24,11 @@ class MusicList extends React.Component {
 
   itemPressed = (index) => {
       this.props.navigation.navigate('AlbumDetailScreen',
-      {music: this.state.music.album[index]});
+      {album: this.state.music.album[index]});
   }
 
   async getMusic(){
-      // Implement music search here
+    // Implement music search here
   }
 
   render() {
@@ -61,16 +61,21 @@ class MusicListItem extends React.Component {
   render() {
     // let imageUrl = this.props.album.Images[0];
     return (
-      <View style={styles.musicListItem}>
-        <Image source={{uri: imageurl}} style={styles.musicListImage}></Image>
-        <Text style={styles.musicListTitle}>album name</Text>
-        <Text style={styles.musicListSubTitle}>band name</Text>
+      <View style={styles.albumListItem}>
+        <Image source={{uri: imageurl}} style={styles.albumListImage}></Image>
+        <Text style={styles.albumListTitle}>album name</Text>
+        <Text style={styles.albumListSubTitle}>band name</Text>
       </View>
     )
   }
 }
 
 export default class MusicListScreen extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+    const { state } = navigation;
+  };
+
   render() {
     return (
       <Fragment>

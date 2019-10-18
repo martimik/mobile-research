@@ -18,7 +18,7 @@ export default class Main extends React.Component {
         </View>
         <View style={styles.content}>
         <ScrollView contentContainerStyle={styles.scrollView}>
-          <MusicListScreen />
+          <MusicListScreen navigation={this.props.navigation}/>
         </ScrollView>
         </View>
         <View style={styles.player}>
