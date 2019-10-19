@@ -12,17 +12,20 @@ export default class Player extends React.Component{
     
     // pass track name 
     playTrack() {        
-        this.state.track = new Sound(track, Sound.MAIN_BUNDLE, (error) => {
+        var track = new Sound(this.state.track, Sound.MAIN_BUNDLE, (error) => {
             if(error){
                 console.log('failed to load the sound', error);
                 return;
             }
 
+            this.state.trackDuration = track.getDuration();
             
             if(isPlaying){
-                track.stop();
+                track.pause();
+                isPlaying = false;
             }else{
                 track.play();
+                isPlaying = true;
             }
             
         });
