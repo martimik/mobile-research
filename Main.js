@@ -7,6 +7,7 @@ import {
 
 import styles from './Styles.js';
 import MusicListScreen from './MusicListScreen.js';
+import Player from './Player'
 
 export default class Main extends React.Component {
 
@@ -22,7 +23,7 @@ export default class Main extends React.Component {
         </ScrollView>
         </View>
         <View style={styles.player}>
-          <Text style={styles.text}>Placeholder for player</Text>
+          <Player></Player>
         </View>
       </Fragment>
     );
