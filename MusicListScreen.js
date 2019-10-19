@@ -54,33 +54,12 @@ class MusicList extends React.Component {
       {album: this.state.albums[index]});
   }
 
-  async getMusic(){
-
-    this.getAll = () => {
-      RNAndroidAudioStore.getAll({
-        blured: false, // works only when 'cover' is set to true
-        artist: true,
-        duration: true, //default : true
-        cover: false, //default : true,
-        genre: true,
-        title: true,
-        cover: true,
-        minimumSongDuration: 10000, // get songs bigger than 10000 miliseconds duration,
-        batchNumber : 1,
-        delay: 1000
-      }).then(tracks => {
-        this.setState({ albums: tracks})
-      })
-        .catch(er => alert(JSON.stringify(error)));
-    };
-    
-    this.getAlbums = (artist='') => {
-      RNAndroidAudioStore.getAlbums({ artist : artist })
-        .then(f => {
-          this.setState({ albums: f });
-        })
-        .catch(er => alert(JSON.stringify(error)));
-    };
+  getMusic () {
+    RNAndroidAudioStore.getAlbums({ artist : '' })
+    .then(f => {
+      this.setState({ albums: f });
+    })
+    .catch(error => alert(JSON.stringify(error)));
   }
 
   render() {
@@ -90,7 +69,7 @@ class MusicList extends React.Component {
         <View style={{flex: 1, padding: 20}}>
           <Text style={styles.text}>Loading, please wait...</Text>
           <Button onPress = {() =>{
-        this.getMusic();
+        this.getAlbums();
       }} title="Test me"/>
         </View>
       )
@@ -117,9 +96,9 @@ class MusicListItem extends React.Component {
     // let imageUrl = this.props.album.Images[0];
     return (
       <View style={styles.albumListItem}>
-        <Image source={{uri: imageurl}} style={styles.albumListImage}></Image>
-        <Text style={styles.albumListTitle}>album name</Text>
-        <Text style={styles.albumListSubTitle}>band name</Text>
+        <Image /* source={{uri: imageurl}} */ style={styles.albumListImage}></Image>
+        <Text style={styles.albumListTitle}>{this.props.album.key}</Text>
+        <Text style={styles.albumListSubTitle}>{this.props.album.artist}</Text>
       </View>
     )
   }
