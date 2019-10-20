@@ -11,43 +11,47 @@ import {
 import Styles from './Styles.js';
 
 class SongList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { album: null };
-    }
+  constructor(props) {
+      super(props);
+      this.state = { songs: null };
+  }
 
-    componentDidMount(){
+  componentDidMount(){
+    alert(JSON.stringify(this.props.album));
+  }
 
-    }
+  itemPressed = (index) => {
+    this.props.navigation.navigate('PlayerScreen',
+    {song: this.state.album.song[index]});
+  }
 
-    itemPressed = (index) => {
-        this.props.navigation.navigate('PlayerScreen',
-        {song: this.state.album.song[index]});
-    }
+  getSongs(){
 
-    render() {
-  
-        if (this.state.album == null){
-          return(
-            <View style={{flex: 1, padding: 20}}>
-              <Text style={styles.text}>Loading, please wait...</Text>
-            </View>
-          )
-        }
-        var items = this.state.album.song.map(function(song,index){
-          return (
-            <TouchableHighlight onPress={_ => this.itemPressed(index)} 
-              underlayColor="lightgray" key={index}>
-              <SongListItem song={song}/>
-            </TouchableHighlight>
-          )
-        }.bind(this));
-        return (
-          <ScrollView contentContainerStyle={styles.songScrollView}>
-            {items}
-          </ScrollView>
-        );
+  }
+
+  render() {
+
+    if (this.state.songs == null){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <Text style={styles.text}>Loading, please wait...</Text>
+        </View>
+      )
     }
+    var items = this.state.songs.map(function(song,index){
+      return (
+        <TouchableHighlight onPress={_ => this.itemPressed(index)} 
+          underlayColor="lightgray" key={index}>
+          <SongListItem song={song}/>
+        </TouchableHighlight>
+      )
+    }.bind(this));
+    return (
+      <ScrollView contentContainerStyle={styles.songScrollView}>
+        {items}
+      </ScrollView>
+    );
+  }
 }
 
 class SongListItem extends React.Component {
@@ -64,20 +68,23 @@ class SongListItem extends React.Component {
 
 export default class AlbumDetailScreen extends React.Component {
 
-    static navigationOptions = ({ navigation }) => {
-        const { state } = navigation;
-    };
+  static navigationOptions = ({ navigation }) => {
+    const { state } = navigation;
+  };
 
-    render() {
-        return (
-        <Fragment>
-            <View style={Styles.songListHeader}>
-                <Image style={Styles.songListHeaderImage} source={require('./cover.jpg')}></Image>
-                <Text style={Styles.songListHeaderTitle}>Album name</Text>
-                <Text style={Styles.songListHeaderSubTitle}>Artist name</Text>
-            </View>
-            <SongList navigation={this.props.navigation}/>
-        </Fragment>
-        );
-    }
+  render() {
+    const { navigation } = this.props;
+    const album = navigation.getParam('album', null);
+    let imageUrl = "file://" + album.cover;
+      return (
+      <Fragment>
+          <View style={Styles.songListHeader}>
+              <Image style={Styles.songListHeaderImage} source={{uri: imageUrl}}></Image>
+              <Text style={Styles.songListHeaderTitle}>{album.album}</Text>
+              <Text style={Styles.songListHeaderSubTitle}>{album.author}</Text>
+          </View>
+          <SongList navigation={this.props.navigation} album={album}/>
+      </Fragment>
+      );
+  }
 };

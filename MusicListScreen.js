@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import styles from './Styles.js';
-import MusicFiles, { RNAndroidAudioStore } from "react-native-get-music-files";
+import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 import {
   PermissionsAndroid,
@@ -9,7 +9,6 @@ import {
   View,
   Image,
   TouchableHighlight,
-  Button
 } from 'react-native';
 
 class MusicList extends React.Component {
@@ -45,19 +44,21 @@ class MusicList extends React.Component {
   componentDidMount() {
 
     this.requestPermission();
-    this.getMusic();
-
+    this.getAlbums();
+    
   }
 
   itemPressed = (index) => {
-      this.props.navigation.navigate('AlbumDetailScreen',
+      this.props.navigation.navigate('AlbumDetail',
       {album: this.state.albums[index]});
+      // alert(JSON.stringify(this.state.albums[index]));
   }
 
-  getMusic () {
+  getAlbums () {
     RNAndroidAudioStore.getAlbums({ artist : '' })
     .then(f => {
       this.setState({ albums: f });
+      
     })
     .catch(error => alert(JSON.stringify(error)));
   }
@@ -68,9 +69,6 @@ class MusicList extends React.Component {
       return(
         <View style={{flex: 1, padding: 20}}>
           <Text style={styles.text}>Loading, please wait...</Text>
-          <Button onPress = {() =>{
-        this.getAlbums();
-      }} title="Test me"/>
         </View>
       )
     }
@@ -90,15 +88,14 @@ class MusicList extends React.Component {
   }
 }
 
-// remove comments after getMusic is implemented
 class MusicListItem extends React.Component {
   render() {
-    // let imageUrl = this.props.album.Images[0];
+    let imageUrl = "file://" + this.props.album.cover;
     return (
       <View style={styles.albumListItem}>
-        <Image /* source={{uri: imageurl}} */ style={styles.albumListImage}></Image>
-        <Text style={styles.albumListTitle}>{this.props.album.key}</Text>
-        <Text style={styles.albumListSubTitle}>{this.props.album.artist}</Text>
+        <Image source={{isStatic:true, uri: imageUrl}} style={styles.albumListImage}></Image>
+        <Text style={styles.albumListTitle}>{ this.props.album.album}</Text>
+        <Text style={styles.albumListSubTitle}>{this.props.album.author}</Text>
       </View>
     )
   }
