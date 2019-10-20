@@ -13,6 +13,7 @@ export default StyleSheet.create({
     borderRadius: 4,
     borderWidth: 2,
     borderColor: '#d6d7da',
+    backgroundColor: '#F5F5F5',
   },
   player: {
     justifyContent: 'flex-end',
@@ -34,21 +35,26 @@ export default StyleSheet.create({
   albumListItem: {
     flexDirection: 'column',
     width: 190,
-    height: 200,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#d6d7da',
+    height: 230,
     overflow: 'hidden',
     marginBottom: 10,
+    backgroundColor: "#FFFFFF",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
   },
   albumListImage:{
-    flex: 1,
     width: 190,
+    height: 180,
     resizeMode: 'stretch',
   },
   albumListTitle: {
     fontWeight: 'bold',
     padding: 2,
+    height: 25,
+    overflow: 'hidden'
   },
   albumListSubTitle: {
     padding: 2,
@@ -67,12 +73,13 @@ export default StyleSheet.create({
   songListHeaderTitle: {
     fontSize: 30,
     fontWeight: 'bold',
-    paddingHorizontal: 5,
+    padding: 5,
   
   },
   songListHeaderSubTitle:{
     fontSize: 20,
-    paddingLeft: 5
+    paddingLeft: 5,
+    textAlignVertical: 'center'
   },
   songScrollView:{
     flexDirection: 'column'
