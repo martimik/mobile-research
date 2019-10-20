@@ -53,7 +53,7 @@ export default StyleSheet.create({
   albumListTitle: {
     fontWeight: 'bold',
     padding: 2,
-    height: 25,
+    height: 23,
     overflow: 'hidden'
   },
   albumListSubTitle: {
@@ -62,7 +62,7 @@ export default StyleSheet.create({
   songListHeader: {
     flexDirection: 'column',
     width: '100%',
-    height: 400,
+    height: 450,
     overflow: 'hidden',
   },
   songListHeaderImage: {
@@ -74,11 +74,12 @@ export default StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     padding: 5,
+    paddingLeft: 10
   
   },
   songListHeaderSubTitle:{
     fontSize: 20,
-    paddingLeft: 5,
+    paddingLeft: 10,
     textAlignVertical: 'center'
   },
   songScrollView:{
@@ -88,20 +89,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
     margin: 5,
     padding: 20,
+    alignItems: 'baseline'
   },
   songListItemNumber: {
-    fontSize: 20,
+    fontSize: 15,
     fontStyle: 'italic',
-    paddingLeft: 10
+    paddingLeft: 10,
+    textAlign: 'center',
   },
   songListItemTitle: {
     flex: 2,
     textAlign: 'center',
-    fontSize: 20,
+    fontStyle: 'italic',
+    fontSize: 18,
   },
   songListItemTime: {
-    fontSize: 20,
-    alignSelf: 'flex-end',
+    fontSize: 15,
     paddingRight: 10,
+    textAlign: 'center',
   }
 })
