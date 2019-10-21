@@ -8,11 +8,18 @@ export default class Player extends React.Component{
         var isPlaying = false;
         var track = "";
         var trackDuration = 0;
+        this.state = { smallPlayer: true, song: null, album: null }
     }
 
     static navigationOptions = ({ navigation }) => {
         const { state } = navigation;
-      };
+    };
+
+    componentDidMount(){
+        this.setState({smallPlayer: navigation.getParam('smallPlayer', null)});
+        this.setState({song: navigation.getParam('song', null)});
+        this.setState({album: navigation.getParam('album', null)});
+    }
     
     // pass track name 
     playTrack() {        
@@ -36,6 +43,13 @@ export default class Player extends React.Component{
     }
 
     render(){
+
+        if(this.state.smallPlayer == true){
+            // return player component
+        }
+        else {
+            // return player screen
+        }
 
         return(
         <Fragment>

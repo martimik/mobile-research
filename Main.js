@@ -23,7 +23,7 @@ export default class Main extends React.Component {
         </ScrollView>
         </View>
         <View style={styles.player}>
-          <Player></Player>
+          <Player smallPlayer={true}></Player>
         </View>
       </Fragment>
     );
