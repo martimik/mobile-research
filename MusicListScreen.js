@@ -51,7 +51,7 @@ class MusicList extends React.Component {
   itemPressed = (index) => {
       this.props.navigation.navigate('AlbumDetail',
       {album: this.state.albums[index]});
-      // alert(JSON.stringify(this.state.albums[index]));
+      // alert(JSON.stringify(this.state.albums[index].cover));
   }
 
   getAlbums () {
@@ -90,14 +90,27 @@ class MusicList extends React.Component {
 
 class MusicListItem extends React.Component {
   render() {
-    let imageUrl = "file://" + this.props.album.cover;
-    return (
-      <View style={styles.albumListItem}>
-        <Image source={{isStatic:true, uri: imageUrl}} style={styles.albumListImage}></Image>
-        <Text style={styles.albumListTitle}>{ this.props.album.album}</Text>
-        <Text style={styles.albumListSubTitle}>{this.props.album.author}</Text>
-      </View>
-    )
+
+    if(this.props.album.cover != 'null'){
+      let imageUrl = "file://" + this.props.album.cover;
+
+      return (
+        <View style={styles.albumListItem}>
+          <Image source={{isStatic:true, uri: imageUrl}} style={styles.albumListImage}></Image>
+          <Text style={styles.albumListTitle}>{ this.props.album.album}</Text>
+          <Text style={styles.albumListSubTitle}>{this.props.album.author}</Text>
+        </View>
+      )
+    }
+    else {
+      return (
+        <View style={styles.albumListItem}>
+          <Image source={require('./Default_Image.png')} style={styles.albumListImage}></Image>
+          <Text style={styles.albumListTitle}>{ this.props.album.album}</Text>
+          <Text style={styles.albumListSubTitle}>{this.props.album.author}</Text>
+        </View>
+      )
+    }
   }
 }
 
