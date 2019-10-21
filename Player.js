@@ -7,10 +7,8 @@ export default class Player extends React.Component{
 
     constructor(props){
         super(props);
-        var isPlaying = false;
-        var track = "";
-        var trackDuration = 0;
-        this.state = { smallPlayer: false, song: null, album: null }
+        
+        this.state = { smallPlayer: true, song: null, album: null }
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -18,34 +16,22 @@ export default class Player extends React.Component{
     };
 
     componentDidMount(){
-        // this.setState({smallPlayer: navigation.getParam('smallPlayer', null)});
-        // this.setState({song: navigation.getParam('song', null)});
-        // this.setState({album: navigation.getParam('album', null)});
+
+        if(this.props.navigation['state']['routeName'] == 'Player'){
+            this.setState({smallPlayer: false});
+        }else{
+            this.setState({smallPlayer: true});
+        }
+        console.log(this.state.smallPlayer);
+        console.log(this.props.navigation['state']['routeName']);
     }
     
-    // pass track name 
-    playTrack() { /*
-        var track = new Sound("biisi.mp3", Sound.MAIN_BUNDLE, (error) => {
-            if(error){
-                console.log('failed to load the sound', error);
-                return;
-            }
-
-            this.state.trackDuration = track.getDuration();
-            
-            if(isPlaying){
-                track.pause();
-                isPlaying = false;
-            }else{
-                track.play();
-                isPlaying = true;
-            }
-
-        });*/
+    
+    playTrack() { 
     }
 
-    changePlayerSize(){
-
+    changePlayerSize(){   
+        this.props.navigation.navigate('Player'); 
     }
 
     nextTrack(){
@@ -57,35 +43,27 @@ export default class Player extends React.Component{
     }
 
     render(){
-            
+        if(this.state.smallPlayer == true){    
             return(
                 <Fragment>
                     <View style={styles.header}>
-                        <Text onPress={this.changePlayerSize()} >Player</Text>
-                        
+                        <Text onPress={_ => this.changePlayerSize()} >Player</Text>
                     </View>        
                 </Fragment> 
                 );    
-        // if(this.state.smallPlayer == true){
-        //     // return player component
-        //     // return(
-        //     //     <Fragment>
-        //     //         <View style={styles.header}>
-        //     //             <Text>Player</Text>
-        //     //         </View>        
-        //     //     </Fragment> 
-        //     //     );       
-            
-        // }
-        // else {
-        //     // return player screen
-        //     // return(
-        //     //     <Fragment>
-        //     //         <View>
-        //     //             <Text>Playercomponent</Text> 
-        //     //         </View>
-        //     //     </Fragment>
-        //     // );
-        // }   
+        }else{
+            return(
+                <Fragment>
+                    <View>
+                        <Text>Player</Text>
+                        <Text>Playercomponent</Text>
+                        <Icon name="stepbackward" onPress={_ => this.previousTrack()} />
+                        <Icon name="caretright" onPress={_ => this.previousTrack()} />
+                        <Icon name="stepforward" onPress={_ => this.previousTrack()} /> 
+                        <Text>Hello</Text>
+                    </View>
+                </Fragment>
+            );
+        } 
     }
 }
