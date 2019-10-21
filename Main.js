@@ -9,8 +9,9 @@ import styles from './Styles.js';
 import MusicListScreen from './MusicListScreen.js';
 import Player from './Player'
 
-export default class Main extends React.Component {
 
+export default class Main extends React.Component {
+  
   render() {
     return (
       <Fragment>
