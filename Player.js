@@ -25,21 +25,21 @@ export default class Player extends React.Component{
         console.log(this.state.smallPlayer);
         console.log(this.props.navigation['state']['routeName']);
     }
-    
-    
-    playTrack() { 
-    }
 
     changePlayerSize(){   
         this.props.navigation.navigate('Player'); 
     }
 
+    playTrack() { 
+        console.log('play track');
+    }
+
     nextTrack(){
-        alert('next track');
+        console.log('next track');
     }
 
     previousTrack(){
-        alert('previoustrack');
+        console.log('previous track');
     }
 
     render(){
@@ -58,9 +58,8 @@ export default class Player extends React.Component{
                         <Text>Player</Text>
                         <Text>Playercomponent</Text>
                         <Icon name="stepbackward" onPress={_ => this.previousTrack()} />
-                        <Icon name="caretright" onPress={_ => this.previousTrack()} />
-                        <Icon name="stepforward" onPress={_ => this.previousTrack()} /> 
-                        <Text>Hello</Text>
+                        <Icon name="caretright" onPress={_ => this.playTrack()} />
+                        <Icon name="stepforward" onPress={_ => this.nextTrack()} /> 
                     </View>
                 </Fragment>
             );
