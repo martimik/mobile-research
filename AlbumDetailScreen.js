@@ -18,16 +18,14 @@ class SongList extends React.Component {
   }
 
   componentDidMount(){
-
     this.getSongs();
-    // alert(JSON.stringify(this.props.album));
   }
 
   itemPressed = (index) => {
     var track = this.state.songs[index];
-    
-    this.props.navigation.navigate('Player',
-    {smallPlayer: false, song: track, album: this.state.album});
+    PlayerList.addSongToQueue(track);
+    // this.props.navigation.navigate('PlayerScreen',
+    // {smallPlayer: false, song: track, album: this.state.album});
   }
 
   getSongs(){

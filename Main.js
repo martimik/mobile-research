@@ -7,7 +7,7 @@ import {
 
 import styles from './Styles.js';
 import MusicListScreen from './MusicListScreen.js';
-import Player from './Player'
+import PlayerScreen from './Player'
 
 
 export default class Main extends React.Component {
@@ -24,7 +24,7 @@ export default class Main extends React.Component {
         </ScrollView>
         </View>
         <View style={styles.player}>
-          <Player navigation={this.props.navigation}></Player>
+          <PlayerScreen navigation={this.props.navigation}></PlayerScreen>
         </View>
       </Fragment>
     );

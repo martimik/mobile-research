@@ -3,14 +3,59 @@ import { StyleSheet, TouchableOpacity, View, Image, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import styles from './Styles.js';
 import Sound from 'react-native-sound';
+import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 
 
-
-export default class Player extends React.Component{
+class PlayerList extends React.Component{
     
     constructor(props){
         super(props);
-        this.state = { smallPlayer: true, song: null, album: null, isPlaying: false };
+        this.state = { songs: [] };
+    }
+
+    addSongToQueue(song){
+        this.state.songs.push(song);
+    }
+
+    render(){
+        if(this.state.songs == null){
+            return;
+        }
+        var songs = this.state.songs.map(function(song, index){
+            return(       
+                <TouchableHighlight onPress={_ => this.playTrack(index)} 
+                underlayColor="lightgray" key={index}>
+                    <PlayerListItem {...song}></PlayerListItem>
+                </TouchableHighlight>                      
+            )
+        }.bind(this));
+
+        return(
+            <ScrollView contentContainerStyle={styles.songScrollView}>
+                {songs}
+            </ScrollView>
+        );
+    } 
+}
+
+
+class PlayerListItem extends React.Component {
+    return(){
+        return(
+            <View>
+                <Text>{this.props.index}</Text>
+                <Text>{this.props.song.artist}</Text>
+                <Text>{this.props.song.album}</Text>
+                <Text>{this.props.song.title}</Text>                        
+            </View>
+        );
+    }
+}
+
+export default class PlayerScreen extends React.Component{
+    constructor(){
+        super();
+        this.state = {isPlaying: false, smallPlayer: true};
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -27,8 +72,6 @@ export default class Player extends React.Component{
             this.setState({smallPlayer: true});
         }        
     }   
-
-    
 
     changePlayerSize(){   
         this.props.navigation.navigate('Player'); 
@@ -80,30 +123,23 @@ export default class Player extends React.Component{
     }
 
     render(){
+        const { navigation } = this.props;
+        const song = navigation.getParam('song', null)
 
-        if(this.state.smallPlayer == true){    
-            return(
-                <Fragment>
-                    <View style={styles.header}>
-                        <Text onPress={_ => this.changePlayerSize()}>{this.state.song}</Text>
-                        {this.showPlayIcon()}
-                    </View>        
-                </Fragment> 
-                );    
-        }else{
-            return(
-                <Fragment>
-                    <View>
-                        <Text>Player</Text>
-                        <Text>{this.state.song.artist}</Text>
-                        <Text>{this.state.song.album}</Text>
-                        <Text>{this.state.song.title}</Text>
-                        <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} />
-                        {this.showPlayIcon()}
-                        <Icon name="stepforward" size={40} onPress={_ => this.nextTrack()} /> 
-                    </View>
-                </Fragment>
-            );
-        } 
+        return(
+            <Fragment>
+                <Text>Player</Text>
+                <PlayerList navigation={this.props.navigation} song={song} />
+                <View>
+                    <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} />
+                </View>
+                <View>
+                    {this.showPlayIcon()}
+                </View>
+                <View>
+                    <Icon name="stepforward" size={40} onPress={_ => this.nextTrack()} /> 
+                </View>                         
+            </Fragment>
+        );
     }
 }
