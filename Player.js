@@ -8,7 +8,7 @@ export default class Player extends React.Component{
     constructor(props){
         super(props);
         
-        this.state = { smallPlayer: true, song: null, album: null }
+        this.state = { smallPlayer: true, song: null, album: null, isPlaying: true }
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -21,9 +21,7 @@ export default class Player extends React.Component{
             this.setState({smallPlayer: false});
         }else{
             this.setState({smallPlayer: true});
-        }
-        console.log(this.state.smallPlayer);
-        console.log(this.props.navigation['state']['routeName']);
+        }        
     }
 
     changePlayerSize(){   
@@ -31,7 +29,27 @@ export default class Player extends React.Component{
     }
 
     playTrack() { 
-        console.log('play track');
+        if(this.state.isPlaying){
+            this.setState({isPlaying: false});
+            this.showPlayIcon();
+        }else{
+            this.setState({isPlaying: true});
+            this.showPlayIcon();
+        }        
+    }
+
+    showPlayIcon(){
+        if(this.state.isPlaying){
+            console.log('play');
+            return(
+                <Icon name="pause" size={40} onPress={_ => this.playTrack()} />
+            );
+        }else{
+            console.log('pause');
+            return(
+                <Icon name="caretright" size={40} onPress={_ => this.playTrack()} />
+            );
+        }   
     }
 
     nextTrack(){
@@ -48,6 +66,7 @@ export default class Player extends React.Component{
                 <Fragment>
                     <View style={styles.header}>
                         <Text onPress={_ => this.changePlayerSize()} >Player</Text>
+                        {this.showPlayIcon()}
                     </View>        
                 </Fragment> 
                 );    
@@ -57,9 +76,9 @@ export default class Player extends React.Component{
                     <View>
                         <Text>Player</Text>
                         <Text>Playercomponent</Text>
-                        <Icon name="stepbackward" onPress={_ => this.previousTrack()} />
-                        <Icon name="caretright" onPress={_ => this.playTrack()} />
-                        <Icon name="stepforward" onPress={_ => this.nextTrack()} /> 
+                        <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} />
+                        {this.showPlayIcon()}
+                        <Icon name="stepforward" size={40} onPress={_ => this.nextTrack()} /> 
                     </View>
                 </Fragment>
             );
