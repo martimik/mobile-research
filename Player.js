@@ -39,7 +39,7 @@ export default class Player extends React.Component{
             return;
         }
         this.state.isPlaying = true;
-        console.log(this.state.song);
+
         this.track = new Sound(this.state.song['path'], '', (error) =>{
             if(error){
                 console.log(error);
@@ -95,7 +95,9 @@ export default class Player extends React.Component{
                 <Fragment>
                     <View>
                         <Text>Player</Text>
-                        <Text>{this.state.song.split("/").pop()}</Text>
+                        <Text>{this.state.song.artist}</Text>
+                        <Text>{this.state.song.album}</Text>
+                        <Text>{this.state.song.title}</Text>
                         <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} />
                         {this.showPlayIcon()}
                         <Icon name="stepforward" size={40} onPress={_ => this.nextTrack()} /> 
