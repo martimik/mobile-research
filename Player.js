@@ -39,8 +39,8 @@ export default class Player extends React.Component{
             return;
         }
         this.state.isPlaying = true;
-        
-        this.track = new Sound(this.state.song, '', (error) =>{
+        console.log(this.state.song);
+        this.track = new Sound(this.state.song['path'], '', (error) =>{
             if(error){
                 console.log(error);
             }else{

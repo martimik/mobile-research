@@ -24,10 +24,10 @@ class SongList extends React.Component {
   }
 
   itemPressed = (index) => {
-    var location = this.state.songs[index]['path'];
+    var track = this.state.songs[index];
     
     this.props.navigation.navigate('Player',
-    {smallPlayer: false, song: location, album: this.state.album});
+    {smallPlayer: false, song: track, album: this.state.album});
   }
 
   getSongs(){
