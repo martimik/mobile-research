@@ -2,13 +2,15 @@ import React, {Fragment} from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import styles from './Styles.js';
+import Sound from 'react-native-sound';
+
 
 export default class Player extends React.Component{
 
     constructor(props){
         super(props);
         
-        this.state = { smallPlayer: true, song: null, album: null, isPlaying: true }
+        this.state = { smallPlayer: true, song: null, album: null, isPlaying: false }
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -16,7 +18,9 @@ export default class Player extends React.Component{
     };
 
     componentDidMount(){
-
+        var newSong = this.props.navigation.getParam('song', null);
+        this.setState({song: newSong});
+        console.log(newSong);
         if(this.props.navigation['state']['routeName'] == 'Player'){
             this.setState({smallPlayer: false});
         }else{
@@ -28,24 +32,34 @@ export default class Player extends React.Component{
         this.props.navigation.navigate('Player'); 
     }
 
-    playTrack() { 
+    playTrack() {  
+       //this.state.song.split("/").pop().trim()
+      
+       var track = new Sound(this.state.song, '', (error) =>{
+           if(error){
+               console.log(error);
+           }else{
+               track.play();
+           }
+       });
+        
         if(this.state.isPlaying){
             this.setState({isPlaying: false});
             this.showPlayIcon();
+
         }else{
             this.setState({isPlaying: true});
             this.showPlayIcon();
         }        
     }
 
+
     showPlayIcon(){
         if(this.state.isPlaying){
-            console.log('play');
             return(
                 <Icon name="pause" size={40} onPress={_ => this.playTrack()} />
             );
         }else{
-            console.log('pause');
             return(
                 <Icon name="caretright" size={40} onPress={_ => this.playTrack()} />
             );
