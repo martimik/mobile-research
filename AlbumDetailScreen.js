@@ -21,7 +21,7 @@ class SongList extends React.Component {
   }
 
   itemPressed = (index) => {
-    this.props.navigation.navigate('PlayerScreen',
+    this.props.navigation.navigate('Player',
     {song: this.state.album.song[index]});
   }
 

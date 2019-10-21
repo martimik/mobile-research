@@ -9,6 +9,10 @@ export default class Player extends React.Component{
         var track = "";
         var trackDuration = 0;
     }
+
+    static navigationOptions = ({ navigation }) => {
+        const { state } = navigation;
+      };
     
     // pass track name 
     playTrack() {        
