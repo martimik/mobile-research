@@ -1,8 +1,10 @@
 import React, {Fragment} from 'react';
 import { View, Image, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
-import styles from './Styles.js';
 import Sound from 'react-native-sound';
+
+import './global.js'
+import styles from './Styles.js';
 
 export default class Player extends React.Component{
     
@@ -17,7 +19,7 @@ export default class Player extends React.Component{
 
     componentDidMount(){
         if(this.props.navigation['state']['routeName'] == 'Player'){
-            this.setState({smallPlayer: false});
+            global.smallPlayer = false;
             this.setState({album: this.props.navigation.getParam('album', null)})
         }else{
             this.setState({smallPlayer: true});
@@ -35,15 +37,11 @@ export default class Player extends React.Component{
         state = this.state;
     }
 
-    changePlayerSize(){   
-        this.props.navigation.navigate('Player'); 
-    }
-
     playTrack = async () => {  
-        if(this.state.song == null){
+        if(global.currentSong == null){
             return;
         }
-        this.state.isPlaying = true;
+        global.isPlaying = true;
 
         this.track = new Sound(this.state.song['path'], '', (error) =>{
             if(error){
@@ -60,14 +58,13 @@ export default class Player extends React.Component{
 
     pause = async () => {
       
-        this.track.pause();
+        global.playback.pause();
        
-        this.setState({isPlaying: false});
-      
+        global.isPlaying = false;
     }
 
     showPlayIcon(){
-        if(this.state.isPlaying){
+        if(global.isPlaying){
             return(
                 <Icon name="pause" size={40} onPress={_ => this.pause()} style={styles.smallPlayerIcon}/>
             );
@@ -102,22 +99,17 @@ export default class Player extends React.Component{
     }
 
     render(){
-        /*if(this.props.navigation.getParam('isPlaying', null) == null){
-            return(
-                <View></View>
-            );
-        }*/
-        if(this.state.smallPlayer == true){    
+        if(global.smallPlayer == true){    
             return(
                 <Fragment>
                     <View style={styles.smallPlayerView}>
-                        <Text style={styles.smallPlayerText}>Current Song</Text>
-                        <Text onPress={_ => this.changePlayerSize()}>{this.state.song}</Text>
+                        <Text style={styles.smallPlayerText}>{global.currentSong}</Text>
                         {this.showPlayIcon()}
                     </View>        
                 </Fragment> 
                 );    
-        }else{
+        }
+        else {
             return(
                 <Fragment>
                     <View style={styles.playerView}>

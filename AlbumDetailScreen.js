@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
+import Player from './Player.js'
 
 import {
     ScrollView,
@@ -110,6 +111,7 @@ export default class AlbumDetailScreen extends React.Component {
               <Text style={Styles.songListHeaderSubTitle}>{album.author}</Text>
             </View>
           <SongList navigation={this.props.navigation} album={album}/>
+          <SmallPlayer ></SmallPlayer>
         </Fragment>
       );
     }
@@ -122,6 +124,7 @@ export default class AlbumDetailScreen extends React.Component {
               <Text style={Styles.songListHeaderSubTitle}>{album.author}</Text>
             </View>
           <SongList navigation={this.props.navigation} album={album}/>
+          <Player navigation={this.props.navigation} ></Player>
         </Fragment>
       );
     }
