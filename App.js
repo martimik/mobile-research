@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Main from './Main.js'
 import AlbumDetailScreen from './AlbumDetailScreen.js'
-import Player from './Player.js'
+import PlayerScreen from './Player.js'
 
 const MainNavigator = createStackNavigator({
   Main: {
@@ -13,8 +13,8 @@ const MainNavigator = createStackNavigator({
   AlbumDetail: {
     screen: AlbumDetailScreen
   },
-  Player: {
-    screen: Player
+  PlayerScreen: {
+    screen: PlayerScreen
   }
 }, {headerMode: 'none'});
 

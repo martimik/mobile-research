@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import { View, Image, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import Sound from 'react-native-sound';
+import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 
 import './global.js'
 import styles from './Styles.js';
@@ -35,7 +36,6 @@ export default class Player extends React.Component{
             global.currentSongIndex = index;
             this.playSong(song);
             this.createPlaylist(songs);
-            console.log("oka");
         }else{
             global.smallPlayer = true;
         }
@@ -153,9 +153,13 @@ export default class Player extends React.Component{
     }
 
     render(){
+<<<<<<< HEAD
         if(global.smallPlayer == true){
 
             var newTitle = global.currentSong.title;
+=======
+        if(this.state.smallPlayer == true){    
+>>>>>>> 92ce1e32ccae5d5fd191b92766f7f025e44e3fa0
             return(
                 <Fragment>
                     <View style={styles.smallPlayerView}>
