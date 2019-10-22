@@ -14,16 +14,13 @@ export default class Main extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = { isPlaying: false };
   }
   componentDidMount(){
     console.log('main loaded');
     
-    console.log("main loadad isPlaying =" + this.state.isPlaying);
   }
 
   componentWillUnmount(){
-    console.log("main quit isPlaying =" + this.state.isPlaying);
   }
 
   render() {

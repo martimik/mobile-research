@@ -10,7 +10,7 @@ export default class Player extends React.Component{
     
     constructor(props){
         super(props);
-        this.state = { smallPlayer: true, song: null, album: null, isPlaying: false };
+        this.state = { song: null, album: null, title: null, index: null };
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -19,58 +19,98 @@ export default class Player extends React.Component{
 
     componentDidMount(){
         if(this.props.navigation['state']['routeName'] == 'Player'){
+
             global.smallPlayer = false;
-            this.setState({album: this.props.navigation.getParam('album', null)})
+            
+            const album = this.props.navigation.getParam('album', null);
+            const song = this.props.navigation.getParam("song", null);
+            const index = this.props.navigation.getParam("index", null);
+            const songs = this.props.navigation.getParam("songs", null)
+
+            this.setState({album: album});
+            this.setState({song: song});
+
+            global.currentSong = song.title;
+            global.currentSongIndex = index;
+            this.playSong(song);
+            this.createPlaylist(songs);
+
         }else{
-            this.setState({smallPlayer: true});
-        }    
-        var newSong = this.props.navigation.getParam('song', null);
-        var playerState = this.props.navigation.getParam('isPlaying', null);
-        
-        this.setState({song: newSong, isPlaying: playerState});           
-        console.log("player loaded isPlaying =" + this.state.isPlaying);
-        
+            global.smallPlayer = true;
+        }
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+        this.forceUpdate();
+    });
     }   
 
     componentWillUnmount(){
-        console.log("player quit isPlaying =" + this.state.isPlaying);
-        state = this.state;
+        global.smallPlayer = true;
+        this.focusListener.remove();
     }
 
-    playTrack = async () => {  
-        if(global.currentSong == null){
+    playSong = async (song) => {
+        
+        if(global.playback){
+            global.playback.release();
+        }
+        
+        var newSound = new Sound(song.path, Sound.MAIN_BUNDLE, (error) => {
+            if(error) {
+                console.log('failed to load the sound', error);
+                return;
+            }
+            
+            global.playback = newSound;
+            global.isPlaying = true;
+            this.forceUpdate();
+
+            newSound.play((success) => {
+                if(success) {
+                    this.nextTrack();
+                }
+                else {
+                console.log('playback failed due to audio decoding errors');
+              }
+            })
+        })
+    }
+
+    createPlaylist = async (songs) => {
+        var songList = songs.map((song) => song.path);
+        console.log(songList);
+        global.songList = songList;
+    }
+
+    retry = async () => {  
+        if(global.playback == null){
             return;
         }
         global.isPlaying = true;
 
-        this.track = new Sound(this.state.song['path'], '', (error) =>{
-            if(error){
-                console.log(error);
-            }else{
-                this.track.setCategory('Playback');
-                this.track.play();
-                this.setState({isPlaying: true});
-                
-            }
-        });
-    }        
+        global.playback.play();
+
+        this.forceUpdate();
+    }
     
 
     pause = async () => {
-      
         global.playback.pause();
        
         global.isPlaying = false;
+
+        this.forceUpdate();
     }
 
     showPlayIcon(){
+
         if(global.isPlaying){
             return(
                 <Icon name="pause" size={40} onPress={_ => this.pause()} style={styles.smallPlayerIcon}/>
             );
         }else{
             return(
-                <Icon name="caretright" size={40} onPress={_ => this.playTrack()} style={styles.smallPlayerIcon}/>
+                <Icon name="caretright" size={40} onPress={_ => this.retry()} style={styles.smallPlayerIcon}/>
             );
         }   
     }
@@ -99,15 +139,17 @@ export default class Player extends React.Component{
     }
 
     render(){
-        if(global.smallPlayer == true){    
+        if(global.smallPlayer == true){
+
+            var newTitle = global.currentSong;
             return(
                 <Fragment>
                     <View style={styles.smallPlayerView}>
-                        <Text style={styles.smallPlayerText}>{global.currentSong}</Text>
+                        <Text style={styles.smallPlayerText}>{newTitle}</Text>
                         {this.showPlayIcon()}
                     </View>        
                 </Fragment> 
-                );    
+            );    
         }
         else {
             return(

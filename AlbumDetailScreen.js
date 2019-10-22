@@ -14,34 +14,27 @@ import Styles from './Styles.js';
 class SongList extends React.Component {
   constructor(props) {
       super(props);
-      this.state = { songs: null, isPlaying: false };
+      this.state = { songs: null };
   }
 
   componentDidMount(){
     this.getSongs();
-    var playerState = this.props.navigation.getParam('isPlaying');
-    this.setState({isPlaying: playerState})
-    console.log("albumscreen load isPlaying =" + this.state.isPlaying);
-    // alert(JSON.stringify(this.props.album));
+    //alert(JSON.stringify(this.props.album));
   }
-
+  
   componentWillUnmount(){
-    console.log("albumscreen quit isPlaying =" + this.state.isPlaying);
     state = this.state;
   }
 
   itemPressed = (index) => {
-    var track = this.state.songs[index];
-    
     this.props.navigation.navigate('Player',
-    {smallPlayer: false, song: track, album: this.props.album, isPlaying: this.state.isPlaying});
+    { song: this.state.songs[index], album: this.props.album, songs: this.state.songs, index: index});
   }
 
   getSongs(){
     RNAndroidAudioStore.getSongs({ album: this.props.album.album })
       .then(f => {
         this.setState({ songs: f });
-        // alert(JSON.stringify(f));
       })
       .catch(error => alert(JSON.stringify(error)));
   }
@@ -111,7 +104,7 @@ export default class AlbumDetailScreen extends React.Component {
               <Text style={Styles.songListHeaderSubTitle}>{album.author}</Text>
             </View>
           <SongList navigation={this.props.navigation} album={album}/>
-          <SmallPlayer ></SmallPlayer>
+          <Player navigation={this.props.navigation} ></Player>
         </Fragment>
       );
     }

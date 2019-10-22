@@ -55,7 +55,6 @@ class MusicList extends React.Component {
       
       this.props.navigation.navigate('AlbumDetail',
       {album: this.state.albums[index]});
-      // alert(JSON.stringify(this.state.albums[index].cover));
   }
 
   getAlbums () {
