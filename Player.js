@@ -18,17 +18,22 @@ export default class Player extends React.Component{
     };
 
     componentDidMount(){
-        var newSong = this.props.navigation.getParam('song', null);
-        this.setState({song: newSong});
-
         if(this.props.navigation['state']['routeName'] == 'Player'){
             this.setState({smallPlayer: false});
         }else{
             this.setState({smallPlayer: true});
-        }        
+        }    
+        var newSong = this.props.navigation.getParam('song', null);
+        var playerState = this.props.navigation.getParam('isPlaying', null);
+        
+        this.setState({song: newSong, isPlaying: playerState});           
+        console.log("player loaded isPlaying =" + this.state.isPlaying);      
     }   
 
-    
+    componentWillUnmount(){
+        console.log("player quit isPlaying =" + this.state.isPlaying);
+        state = this.state;
+    }
 
     changePlayerSize(){   
         this.props.navigation.navigate('Player'); 
@@ -47,16 +52,18 @@ export default class Player extends React.Component{
                 this.track.setCategory('Playback');
                 this.track.play();
                 this.setState({isPlaying: true});
+                
             }
         });
     }        
     
 
     pause = async () => {
-        if(this.track){
-            this.track.pause();
-        }
+      
+        this.track.pause();
+       
         this.setState({isPlaying: false});
+      
     }
 
     showPlayIcon(){
@@ -80,11 +87,16 @@ export default class Player extends React.Component{
     }
 
     render(){
-
+        /*if(this.props.navigation.getParam('isPlaying', null) == null){
+            return(
+                <View></View>
+            );
+        }*/
         if(this.state.smallPlayer == true){    
             return(
                 <Fragment>
                     <View style={styles.header}>
+                        <Text>Player</Text>
                         <Text onPress={_ => this.changePlayerSize()}>{this.state.song}</Text>
                         {this.showPlayIcon()}
                     </View>        

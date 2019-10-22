@@ -7,11 +7,25 @@ import {
 
 import styles from './Styles.js';
 import MusicListScreen from './MusicListScreen.js';
-import Player from './Player'
+import Player from './Player.js'
 
 
 export default class Main extends React.Component {
-  
+
+  constructor(props){
+    super(props);
+    this.state = { isPlaying: false };
+  }
+  componentDidMount(){
+    console.log('main loaded');
+    
+    console.log("main loadad isPlaying =" + this.state.isPlaying);
+  }
+
+  componentWillUnmount(){
+    console.log("main quit isPlaying =" + this.state.isPlaying);
+  }
+
   render() {
     return (
       <Fragment>
@@ -20,11 +34,11 @@ export default class Main extends React.Component {
         </View>
         <View style={styles.content}>
         <ScrollView contentContainerStyle={styles.scrollView}>
-          <MusicListScreen navigation={this.props.navigation}/>
+          <MusicListScreen navigation={this.props.navigation} />
         </ScrollView>
-        </View>
         <View style={styles.player}>
-          <Player navigation={this.props.navigation}></Player>
+          <Player navigation={this.props.navigation} ></Player>
+        </View>
         </View>
       </Fragment>
     );

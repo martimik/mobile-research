@@ -14,20 +14,27 @@ import Styles from './Styles.js';
 class SongList extends React.Component {
   constructor(props) {
       super(props);
-      this.state = { songs: null };
+      this.state = { songs: null, isPlaying: false };
   }
 
   componentDidMount(){
-
     this.getSongs();
+    var playerState = this.props.navigation.getParam('isPlaying');
+    this.setState({isPlaying: playerState})
+    console.log("albumscreen load isPlaying =" + this.state.isPlaying);
     // alert(JSON.stringify(this.props.album));
+  }
+
+  componentWillUnmount(){
+    console.log("albumscreen quit isPlaying =" + this.state.isPlaying);
+    state = this.state;
   }
 
   itemPressed = (index) => {
     var track = this.state.songs[index];
     
     this.props.navigation.navigate('Player',
-    {smallPlayer: false, song: track, album: this.state.album});
+    {smallPlayer: false, song: track, album: this.state.album, isPlaying: this.state.isPlaying});
   }
 
   getSongs(){
