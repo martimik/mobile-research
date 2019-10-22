@@ -46,3 +46,7 @@ Rajasimme aiheen laitteella oleviin audiotiedostoihin.
 [PP](https://jamkstudent-my.sharepoint.com/:p:/g/personal/l4721_student_jamk_fi/EZqUAIN2UB9FvkpvvpAryf8BtDdpp5ci5SpR9nQjbbZjoA?e=BXBOIQ)
 
 [video](https://www.youtube.com/watch?v=9Nmv-zwEBCY&feature=youtu.be)
+
+## Itsearvio
+
+Samuli: 1, Vähän aikaa käytetty projektiin
