@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import styles from './Styles.js';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 import {
@@ -34,7 +33,7 @@ class SongList extends React.Component {
     var track = this.state.songs[index];
     
     this.props.navigation.navigate('Player',
-    {smallPlayer: false, song: track, album: this.state.album, isPlaying: this.state.isPlaying});
+    {smallPlayer: false, song: track, album: this.props.album, isPlaying: this.state.isPlaying});
   }
 
   getSongs(){
@@ -51,7 +50,7 @@ class SongList extends React.Component {
     if (this.state.songs == null){
       return(
         <View style={{flex: 1, padding: 20}}>
-          <Text style={styles.text}>Loading, please wait...</Text>
+          <Text style={Styles.text}>Loading, please wait...</Text>
         </View>
       )
     }
@@ -64,7 +63,7 @@ class SongList extends React.Component {
       )
     }.bind(this));
     return (
-      <ScrollView contentContainerStyle={styles.songScrollView}>
+      <ScrollView contentContainerStyle={Styles.songScrollView}>
         {items}
       </ScrollView>
     );

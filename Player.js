@@ -1,10 +1,8 @@
 import React, {Fragment} from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text} from 'react-native'
+import { View, Image, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import styles from './Styles.js';
 import Sound from 'react-native-sound';
-
-
 
 export default class Player extends React.Component{
     
@@ -20,6 +18,7 @@ export default class Player extends React.Component{
     componentDidMount(){
         if(this.props.navigation['state']['routeName'] == 'Player'){
             this.setState({smallPlayer: false});
+            this.setState({album: this.props.navigation.getParam('album', null)})
         }else{
             this.setState({smallPlayer: true});
         }    
@@ -27,7 +26,8 @@ export default class Player extends React.Component{
         var playerState = this.props.navigation.getParam('isPlaying', null);
         
         this.setState({song: newSong, isPlaying: playerState});           
-        console.log("player loaded isPlaying =" + this.state.isPlaying);      
+        console.log("player loaded isPlaying =" + this.state.isPlaying);
+        
     }   
 
     componentWillUnmount(){
@@ -69,13 +69,28 @@ export default class Player extends React.Component{
     showPlayIcon(){
         if(this.state.isPlaying){
             return(
-                <Icon name="pause" size={40} onPress={_ => this.pause()} />
+                <Icon name="pause" size={40} onPress={_ => this.pause()} style={styles.smallPlayerIcon}/>
             );
         }else{
             return(
-                <Icon name="caretright" size={40} onPress={_ => this.playTrack()} />
+                <Icon name="caretright" size={40} onPress={_ => this.playTrack()} style={styles.smallPlayerIcon}/>
             );
         }   
+    }
+
+    ShowAlbumCover(){
+    
+        if(this.state.album.cover != 'null'){
+            let imageUrl = "file://" + this.state.album.cover;
+            return(
+                <Image style={styles.playerImage} source={{uri: imageUrl}}></Image>
+            );
+        }
+        else{
+            return(
+                <Image style={styles.playerImage} source={require('./Default_Image.png')}></Image>
+            );
+        }
     }
 
     nextTrack(){
@@ -95,8 +110,8 @@ export default class Player extends React.Component{
         if(this.state.smallPlayer == true){    
             return(
                 <Fragment>
-                    <View style={styles.header}>
-                        <Text>Player</Text>
+                    <View style={styles.smallPlayerView}>
+                        <Text style={styles.smallPlayerText}>Current Song</Text>
                         <Text onPress={_ => this.changePlayerSize()}>{this.state.song}</Text>
                         {this.showPlayIcon()}
                     </View>        
@@ -105,14 +120,15 @@ export default class Player extends React.Component{
         }else{
             return(
                 <Fragment>
-                    <View>
-                        <Text>Player</Text>
-                        <Text>{this.state.song.artist}</Text>
-                        <Text>{this.state.song.album}</Text>
-                        <Text>{this.state.song.title}</Text>
-                        <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} />
-                        {this.showPlayIcon()}
-                        <Icon name="stepforward" size={40} onPress={_ => this.nextTrack()} /> 
+                    <View style={styles.playerView}>
+                        {this.ShowAlbumCover()}
+                        <Text style={styles.playerTitle}>{this.state.song.title}</Text>
+                        <Text style={styles.playerSubTitle}>{this.state.song.artist}</Text>
+                        <View style={styles.playerActionbar}>
+                            <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} style={styles.smallPlayerIcon}/>
+                            {this.showPlayIcon()}
+                            <Icon name="stepforward" size={40} onPress={_ => this.nextTrack()} style={styles.smallPlayerIcon}/>
+                        </View>
                     </View>
                 </Fragment>
             );

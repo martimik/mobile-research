@@ -9,10 +9,7 @@ export default StyleSheet.create({
   content: {
     flex: 1,
     alignSelf: 'stretch',
-    padding: 5,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#d6d7da',
+    paddingTop: 5,
     backgroundColor: '#F5F5F5',
   },
   player: {
@@ -107,5 +104,47 @@ export default StyleSheet.create({
     fontSize: 15,
     paddingRight: 10,
     textAlign: 'center',
+  },
+  smallPlayerView: {
+    flexDirection: 'row',
+    borderRadius: 4,
+    borderTopWidth: 2,
+    borderColor: '#d6d7da',
+  },
+  smallPlayerText: {
+    textAlignVertical: 'center',
+    fontSize: 18,
+    padding: 20,
+    flex: 1,
+  },
+  smallPlayerIcon: {
+    padding: 20,
+  },
+  playerView: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%'
+  },
+  playerImage:{
+    width: '100%',
+    height: 500,
+    resizeMode: 'stretch'
+  },
+  playerTitle: {
+    width: '100%',
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  playerSubTitle:{
+    width: '100%',
+    fontSize: 20,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  playerActionbar: {
+    flexDirection: 'row',
+    width: '100%',
+    marginBottom: 40,
+    justifyContent: 'space-evenly'
   }
 })
