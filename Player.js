@@ -29,9 +29,9 @@ export default class Player extends React.Component{
             const songs = this.props.navigation.getParam("songs", null)
 
             this.setState({album: album});
-            this.setState({song: song.title});
+            this.setState({song: song});
 
-            global.currentSong = song.title;
+            global.currentSong = song;
             global.currentSongIndex = index;
             this.playSong(song);
             this.createPlaylist(songs);
@@ -135,7 +135,7 @@ export default class Player extends React.Component{
     nextTrack(){
         console.log('next track');
         this.playSong(global.songList[global.currentSongIndex + 1]);
-        global.currentSong = global.songList[global.currentSongIndex + 1].title;
+        global.currentSong = global.songList[global.currentSongIndex + 1];
         global.currentSongIndex += 1;
         this.setState({song: currentSong });
         console.log(currentSong);
@@ -145,7 +145,7 @@ export default class Player extends React.Component{
     previousTrack(){
         console.log('previous track');
         this.playSong(global.songList[global.currentSongIndex - 1]);
-        global.currentSong = global.songList[global.currentSongIndex - 1].title;
+        global.currentSong = global.songList[global.currentSongIndex - 1];
         global.currentSongIndex -= 1;
         this.setState({song: currentSong });
         console.log(currentSong);
@@ -155,7 +155,7 @@ export default class Player extends React.Component{
     render(){
         if(global.smallPlayer == true){
 
-            var newTitle = global.currentSong;
+            var newTitle = global.currentSong.title;
             return(
                 <Fragment>
                     <View style={styles.smallPlayerView}>
@@ -170,7 +170,7 @@ export default class Player extends React.Component{
                 <Fragment>
                     <View style={styles.playerView}>
                         {this.ShowAlbumCover()}
-                        <Text style={styles.playerTitle}>{this.state.song}</Text>
+                        <Text style={styles.playerTitle}>{this.state.song.title}</Text>
                         <Text style={styles.playerSubTitle}>{this.state.song.artist}</Text>
                         <View style={styles.playerActionbar}>
                             <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} style={styles.smallPlayerIcon}/>
