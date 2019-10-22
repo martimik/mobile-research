@@ -18,6 +18,7 @@ export default class Player extends React.Component{
     };
 
     componentDidMount(){
+
         if(this.props.navigation['state']['routeName'] == 'Player'){
 
             global.smallPlayer = false;
@@ -28,16 +29,17 @@ export default class Player extends React.Component{
             const songs = this.props.navigation.getParam("songs", null)
 
             this.setState({album: album});
-            this.setState({song: song});
+            this.setState({song: song.title});
 
             global.currentSong = song.title;
             global.currentSongIndex = index;
             this.playSong(song);
             this.createPlaylist(songs);
-
+            console.log("oka");
         }else{
             global.smallPlayer = true;
         }
+
         const { navigation } = this.props;
         this.focusListener = navigation.addListener('didFocus', () => {
         this.forceUpdate();
@@ -54,7 +56,7 @@ export default class Player extends React.Component{
         if(global.playback){
             global.playback.release();
         }
-        
+
         var newSound = new Sound(song.path, Sound.MAIN_BUNDLE, (error) => {
             if(error) {
                 console.log('failed to load the sound', error);
@@ -77,9 +79,9 @@ export default class Player extends React.Component{
     }
 
     createPlaylist = async (songs) => {
-        var songList = songs.map((song) => song.path);
-        console.log(songList);
+        var songList = songs.map((song) => song);
         global.songList = songList;
+        this.forceUpdate();
     }
 
     retry = async () => {  
@@ -132,10 +134,22 @@ export default class Player extends React.Component{
 
     nextTrack(){
         console.log('next track');
+        this.playSong(global.songList[global.currentSongIndex + 1]);
+        global.currentSong = global.songList[global.currentSongIndex + 1].title;
+        global.currentSongIndex += 1;
+        this.setState({song: currentSong });
+        console.log(currentSong);
+        this.forceUpdate();
     }
 
     previousTrack(){
         console.log('previous track');
+        this.playSong(global.songList[global.currentSongIndex - 1]);
+        global.currentSong = global.songList[global.currentSongIndex - 1].title;
+        global.currentSongIndex -= 1;
+        this.setState({song: currentSong });
+        console.log(currentSong);
+        this.forceUpdate();
     }
 
     render(){
@@ -156,7 +170,7 @@ export default class Player extends React.Component{
                 <Fragment>
                     <View style={styles.playerView}>
                         {this.ShowAlbumCover()}
-                        <Text style={styles.playerTitle}>{this.state.song.title}</Text>
+                        <Text style={styles.playerTitle}>{this.state.song}</Text>
                         <Text style={styles.playerSubTitle}>{this.state.song.artist}</Text>
                         <View style={styles.playerActionbar}>
                             <Icon name="stepbackward" size={40} onPress={_ => this.previousTrack()} style={styles.smallPlayerIcon}/>
