@@ -43,6 +43,6 @@ Rajasimme aiheen laitteella oleviin audiotiedostoihin.
 
 ## Powerpoint
 
-https://jamkstudent-my.sharepoint.com/:p:/g/personal/l4721_student_jamk_fi/EZqUAIN2UB9FvkpvvpAryf8BtDdpp5ci5SpR9nQjbbZjoA?e=BXBOIQ
+[PP](https://jamkstudent-my.sharepoint.com/:p:/g/personal/l4721_student_jamk_fi/EZqUAIN2UB9FvkpvvpAryf8BtDdpp5ci5SpR9nQjbbZjoA?e=BXBOIQ)
 
-[](https://www.youtube.com/watch?v=9Nmv-zwEBCY&feature=youtu.be)
+[video](https://www.youtube.com/watch?v=9Nmv-zwEBCY&feature=youtu.be)
