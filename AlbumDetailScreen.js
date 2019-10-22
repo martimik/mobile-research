@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import styles from './Styles.js';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 import {
@@ -14,18 +13,27 @@ import Styles from './Styles.js';
 class SongList extends React.Component {
   constructor(props) {
       super(props);
-      this.state = { songs: null };
+      this.state = { songs: null, isPlaying: false };
   }
 
   componentDidMount(){
     this.getSongs();
+    var playerState = this.props.navigation.getParam('isPlaying');
+    this.setState({isPlaying: playerState})
+    console.log("albumscreen load isPlaying =" + this.state.isPlaying);
+    // alert(JSON.stringify(this.props.album));
+  }
+
+  componentWillUnmount(){
+    console.log("albumscreen quit isPlaying =" + this.state.isPlaying);
+    state = this.state;
   }
 
   itemPressed = (index) => {
     var track = this.state.songs[index];
-    PlayerList.addSongToQueue(track);
-    // this.props.navigation.navigate('PlayerScreen',
-    // {smallPlayer: false, song: track, album: this.state.album});
+    
+    this.props.navigation.navigate('Player',
+    {smallPlayer: false, song: track, album: this.props.album, isPlaying: this.state.isPlaying});
   }
 
   getSongs(){
@@ -42,7 +50,7 @@ class SongList extends React.Component {
     if (this.state.songs == null){
       return(
         <View style={{flex: 1, padding: 20}}>
-          <Text style={styles.text}>Loading, please wait...</Text>
+          <Text style={Styles.text}>Loading, please wait...</Text>
         </View>
       )
     }
@@ -55,7 +63,7 @@ class SongList extends React.Component {
       )
     }.bind(this));
     return (
-      <ScrollView contentContainerStyle={styles.songScrollView}>
+      <ScrollView contentContainerStyle={Styles.songScrollView}>
         {items}
       </ScrollView>
     );

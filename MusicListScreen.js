@@ -42,10 +42,13 @@ class MusicList extends React.Component {
   };
 
   componentDidMount() {
-
     this.requestPermission();
     this.getAlbums();
-    
+    console.log('musiclist loaded');
+  }
+
+  componentWillUnmount(){
+    console.log('musiclist quit');
   }
 
   itemPressed = (index) => {
@@ -124,7 +127,7 @@ export default class MusicListScreen extends React.Component {
   render() {
     return (
       <Fragment>
-        <MusicList navigation={this.props.navigation}/>
+        <MusicList navigation={this.props.navigation} />
       </Fragment>
     );
   }
