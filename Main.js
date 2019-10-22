@@ -7,9 +7,11 @@ import {
 
 import styles from './Styles.js';
 import MusicListScreen from './MusicListScreen.js';
+import PlayerScreen from './Player'
+
 
 export default class Main extends React.Component {
-
+  
   render() {
     return (
       <Fragment>
@@ -22,7 +24,7 @@ export default class Main extends React.Component {
         </ScrollView>
         </View>
         <View style={styles.player}>
-          <Text style={styles.text}>Placeholder for player</Text>
+          <PlayerScreen navigation={this.props.navigation}></PlayerScreen>
         </View>
       </Fragment>
     );

@@ -1,1 +1,7 @@
 npm install --save react-navigation && npm install --save react-navigation-stack && npm install --save react-native-gesture-handler && npm install --save react-native-permissions
+
+Iconit (https://github.com/oblador/react-native-vector-icons)
+1. npm install --save react-native-vector-icons
+2. android/app/build.gradleen (huom ei android/build.gradleen)
+    - apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
