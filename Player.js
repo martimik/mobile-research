@@ -153,13 +153,9 @@ export default class Player extends React.Component{
     }
 
     render(){
-<<<<<<< HEAD
         if(global.smallPlayer == true){
 
             var newTitle = global.currentSong.title;
-=======
-        if(this.state.smallPlayer == true){    
->>>>>>> 92ce1e32ccae5d5fd191b92766f7f025e44e3fa0
             return(
                 <Fragment>
                     <View style={styles.smallPlayerView}>
