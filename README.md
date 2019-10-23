@@ -50,4 +50,5 @@ Rajasimme aiheen laitteella oleviin audiotiedostoihin.
 ## Itsearvio
 
 Samuli: 1, Vähän aikaa käytetty projektiin
+
 Mikko : 2, Player-komponentin olisi voinut suunnitella paremmin. Toimivan demon tuottaminen kuitenkin onnistui. Aikaa käytetty enemmän.
